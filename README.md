@@ -1,2 +1,2 @@
 # py_leetcode
-to do leetcode with python
+Solve leetcode problems using python
