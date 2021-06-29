@@ -4,19 +4,9 @@ from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         ans = 0
-        if not prices:
-            return ans
-
-        start = prices[0]
-        for i in range(len(prices) - 1):
-            if prices[i + 1] > prices[i]:
-                continue
-            else:
-                # 要跌了
-                ans += prices[i] - start
-                start = prices[i + 1]
-
-        ans += prices[-1] - start
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i - 1]:
+                ans += prices[i] - prices[i - 1]
         return ans
 
 
