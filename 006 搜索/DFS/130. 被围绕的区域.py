@@ -3,17 +3,23 @@ from typing import List
 DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 
 
+def get_next(point, m, n):
+    nexts = []
+    for d in DIRECTIONS:
+        ne = [point[0] + d[0], point[1] + d[1]]
+        if 0 <= ne[0] < m and 0 <= ne[1] < n:
+            nexts.append(ne)
+    return nexts
+
+
 def bfs(board, i, j, m, n, visited):
     queue = [[i, j]]
     visited[i][j] = True
     board[i][j] = ''
     while queue:
         cur = queue.pop()
-        for d in DIRECTIONS:
-            ne = [cur[0] + d[0], cur[1] + d[1]]
-            if 0 <= ne[0] < m and 0 <= ne[1] < n \
-                    and not visited[ne[0]][ne[1]] \
-                    and board[ne[0]][ne[1]] == "O":
+        for ne in get_next(cur, m, n):
+            if not visited[ne[0]][ne[1]] and board[ne[0]][ne[1]] == "O":
                 # 没访问过，且是O
                 visited[ne[0]][ne[1]] = True
                 board[ne[0]][ne[1]] = ''
@@ -45,8 +51,10 @@ class Solution:
                     board[i][j] = 'O'
 
 
+"""
 if __name__ == '__main__':
     board = [["X", "O", "X", "O", "X", "O"], ["O", "X", "O", "X", "O", "X"], ["X", "O", "X", "O", "X", "O"],
              ["O", "X", "O", "X", "O", "X"]]
     print(Solution().solve(board))
     print(board)
+"""
